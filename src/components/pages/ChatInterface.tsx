@@ -57,22 +57,22 @@ export function ChatInterface() {
   }
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col gradient-bg">
       {/* Header */}
-      <div className="border-b border-border bg-card px-6 py-4">
+      <div className="border-b border-border/50 bg-card/80 backdrop-blur-sm px-8 py-6">
         <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-semibold text-foreground">AI Chat</h1>
-            <p className="text-sm text-muted-foreground">
+          <div className="space-y-1">
+            <h1 className="text-3xl font-bold text-foreground tracking-tight">AI Chat</h1>
+            <p className="text-base text-muted-foreground">
               Private, secure conversations with your AI assistant
             </p>
           </div>
           <div className="flex items-center gap-3">
             <div className="privacy-indicator">
-              <Shield className="h-3 w-3" />
+              <Shield className="h-4 w-4" />
               <span>Private Session</span>
             </div>
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" className="hover:bg-muted/50">
               <MoreVertical className="h-4 w-4" />
             </Button>
           </div>
@@ -82,7 +82,7 @@ export function ChatInterface() {
       {/* Chat Messages */}
       <div className="flex-1 overflow-hidden">
         <ScrollArea className="h-full">
-          <div className="mx-auto max-w-4xl space-y-6 p-6">
+          <div className="mx-auto max-w-4xl space-y-8 p-8">
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -91,23 +91,23 @@ export function ChatInterface() {
                 }`}
               >
                 {message.sender === 'ai' && (
-                  <Avatar className="h-8 w-8 bg-primary">
-                    <AvatarFallback className="bg-primary text-primary-foreground text-sm">
+                  <Avatar className="h-10 w-10 bg-gradient-to-br from-accent to-accent/80 shadow-sm">
+                    <AvatarFallback className="bg-gradient-to-br from-accent to-accent/80 text-accent-foreground text-sm font-medium">
                       AI
                     </AvatarFallback>
                   </Avatar>
                 )}
                 
                 <Card
-                  className={`max-w-2xl ${
+                  className={`max-w-2xl shadow-sm border-0 ${
                     message.sender === 'user'
-                      ? 'bg-accent text-accent-foreground'
-                      : 'bg-card'
+                      ? 'bg-accent/90 text-accent-foreground backdrop-blur-sm'
+                      : 'bg-card/80 backdrop-blur-sm'
                   }`}
                 >
-                  <CardContent className="p-4">
+                  <CardContent className="p-5">
                     <p className="text-sm leading-relaxed">{message.content}</p>
-                    <p className="mt-2 text-xs text-muted-foreground">
+                    <p className="mt-3 text-xs text-muted-foreground">
                       {message.timestamp.toLocaleTimeString([], {
                         hour: '2-digit',
                         minute: '2-digit',
@@ -117,8 +117,8 @@ export function ChatInterface() {
                 </Card>
 
                 {message.sender === 'user' && (
-                  <Avatar className="h-8 w-8 bg-muted">
-                    <AvatarFallback className="text-sm">You</AvatarFallback>
+                  <Avatar className="h-10 w-10 bg-muted shadow-sm">
+                    <AvatarFallback className="text-sm font-medium">You</AvatarFallback>
                   </Avatar>
                 )}
               </div>
@@ -128,10 +128,10 @@ export function ChatInterface() {
       </div>
 
       {/* Input Area */}
-      <div className="border-t border-border bg-card p-6">
+      <div className="border-t border-border/50 bg-card/80 backdrop-blur-sm p-8">
         <div className="mx-auto max-w-4xl">
-          <div className="flex items-end gap-3">
-            <Button variant="outline" size="sm" className="shrink-0">
+          <div className="flex items-end gap-4">
+            <Button variant="outline" size="sm" className="shrink-0 h-12 w-12 border-border/50 hover:bg-muted/50">
               <Paperclip className="h-4 w-4" />
             </Button>
             
@@ -141,31 +141,31 @@ export function ChatInterface() {
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Ask me anything about your documents or data..."
-                className="min-h-[44px] resize-none"
+                className="min-h-[48px] resize-none border-border/50 bg-background/50 backdrop-blur-sm text-base px-4 py-3 focus:ring-2 focus:ring-accent/20"
               />
             </div>
             
             <Button 
               onClick={handleSendMessage}
               disabled={!inputValue.trim()}
-              className="shrink-0"
+              className="shrink-0 h-12 w-12 bg-accent hover:bg-accent/90 shadow-sm"
             >
               <Send className="h-4 w-4" />
             </Button>
           </div>
           
-          <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-1">
-                <Shield className="h-3 w-3" />
+          <div className="mt-4 flex items-center justify-between text-sm text-muted-foreground">
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-2">
+                <Shield className="h-3.5 w-3.5 text-emerald-500" />
                 <span>All conversations are private and encrypted</span>
               </div>
-              <div className="flex items-center gap-1">
-                <FileText className="h-3 w-3" />
+              <div className="flex items-center gap-2">
+                <FileText className="h-3.5 w-3.5 text-blue-500" />
                 <span>Supports document analysis</span>
               </div>
             </div>
-            <span>Press Enter to send, Shift+Enter for new line</span>
+            <span className="text-xs">Press Enter to send, Shift+Enter for new line</span>
           </div>
         </div>
       </div>

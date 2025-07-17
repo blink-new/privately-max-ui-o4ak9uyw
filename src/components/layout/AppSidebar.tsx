@@ -40,14 +40,14 @@ export function AppSidebar({ currentPage, onNavigate }: AppSidebarProps) {
   ]
 
   return (
-    <Sidebar className="border-r border-border bg-sidebar">
+    <Sidebar className="border-r border-sidebar-border bg-sidebar shadow-lg">
       <SidebarHeader className="border-b border-sidebar-border p-6">
-        <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-            <Shield className="h-4 w-4 text-primary-foreground" />
+        <div className="flex items-center gap-4">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-sidebar-primary to-sidebar-primary/80 shadow-sm">
+            <Shield className="h-5 w-5 text-sidebar-primary-foreground" />
           </div>
-          <div>
-            <h1 className="text-lg font-semibold text-sidebar-foreground">privately.max</h1>
+          <div className="space-y-1">
+            <h1 className="text-xl font-bold text-sidebar-foreground tracking-tight">privately.max</h1>
             <div className="privacy-indicator">
               <Lock className="h-3 w-3" />
               <span>GDPR Compliant</span>
@@ -56,14 +56,14 @@ export function AppSidebar({ currentPage, onNavigate }: AppSidebarProps) {
         </div>
       </SidebarHeader>
 
-      <SidebarContent className="p-4">
-        <SidebarMenu>
+      <SidebarContent className="p-6">
+        <SidebarMenu className="space-y-2">
           {menuItems.map((item) => (
             <SidebarMenuItem key={item.page}>
               <SidebarMenuButton
                 onClick={() => onNavigate(item.page)}
                 isActive={currentPage === item.page}
-                className="w-full justify-start gap-3 px-3 py-2.5 text-sm font-medium transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                className="w-full justify-start gap-3 px-4 py-3 text-sm font-medium transition-all duration-200 rounded-lg hover:bg-sidebar-accent hover:text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent"
               >
                 <item.icon className="h-4 w-4" />
                 {item.title}
@@ -73,13 +73,15 @@ export function AppSidebar({ currentPage, onNavigate }: AppSidebarProps) {
         </SidebarMenu>
       </SidebarContent>
 
-      <SidebarFooter className="border-t border-sidebar-border p-4">
-        <div className="text-xs text-muted-foreground">
-          <div className="mb-2 flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-green-500"></div>
-            <span>Local Processing Active</span>
+      <SidebarFooter className="border-t border-sidebar-border p-6">
+        <div className="space-y-3">
+          <div className="flex items-center gap-3 p-3 bg-sidebar-accent/50 rounded-lg">
+            <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></div>
+            <span className="text-sm font-medium text-sidebar-foreground">Local Processing Active</span>
           </div>
-          <p>All data stays on your premises</p>
+          <p className="text-xs text-sidebar-foreground/70 leading-relaxed">
+            All data stays on your premises. Zero third-party access.
+          </p>
         </div>
       </SidebarFooter>
     </Sidebar>
